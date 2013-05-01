@@ -31,7 +31,9 @@ module.exports = function(app) {
     var section = req.params.section;
 
     // TODO - hook this into a model somewhere
-    req.params.item = {};
+    req.params.item = {
+      title: 'Learn activity title'
+    };
 
     next();
   });
@@ -56,6 +58,12 @@ module.exports = function(app) {
       url: '/learn/activities/some-activity'
     }];
 
+    var itemDict = {
+      organization: 0,
+      program: 1,
+      activity: 2
+    };
+
     if (item)
       return res.render('learn/' + section.set + '/single.html', {
         item: item
@@ -69,7 +77,11 @@ module.exports = function(app) {
     }
 
     for (var i = 0; i < 12; ++i) {
-      items.push(itemOptions[Math.floor(Math.random()*itemOptions.length)]);
+      var itemIndex = (section && section.set in itemDict)
+            ? itemDict[section.set]
+            : Math.floor(Math.random()*itemOptions.length);
+      console.log(section, itemIndex);
+      items.push(itemOptions[itemIndex]);
     }
 
     var filters = [{
