@@ -1,0 +1,39 @@
+{% extends 'auth/layout.html' %}
+{% set bodyClass = 'sign-up' %}
+{% set pageTitle = 'Almost there' %}
+{% set navItem = 'auth' %}
+
+{% block content %}
+	<form class="form-horizontal span6 offset3" method="post">
+		<input type="hidden" name="_csrf" value="{{ csrfToken }}">
+		<fieldset>
+			<div class="control-group">
+				<label class="control-label" for="input-email">Your Name</label>
+				<div class="controls">
+					<input type="text" id="input-first-name" name="first_name" value="{{ first_name }}" class="input-small" required="required" placeholder="First">
+					<input type="text" id="input-last-name" name="last_name" value="{{ last_name }}" class="input-small" required="required" placeholder="Last">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input-email">Your parent's email</label>
+				<div class="controls">
+					<input type="email" id="input-email" name="parent_email" value="{{ parent_email }}" placeholder="e.g. user@example.com" required="required">
+					<span class="help-block">We need to know you're not an alien!
+						<br><strong><a href="/privacy">Please see our privacy policy.</a></strong></span>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" id="input-password-label">Your password is</label>
+				<div class="controls">
+					<input type="text" readonly="readonly" id="input-password" value="{{ password }}">
+					<span class="help-block">Don't forget this! You'll need it to log in again later.</span>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<p><button type="submit" class="btn">Submit</button></p>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+{% endblock %}
