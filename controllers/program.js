@@ -329,10 +329,18 @@ module.exports = function (app) {
           return finish(err);
 
         if (req.body.action === 'apply')
-          return application.submit(finish);
+          return application.submit(function (err) {
+            if (!err)
+              req.flash('success', 'Your application has been submitted');
+            finish(err);
+          });
 
         if (req.body.action === 'reopen')
-          return application.reopen(finish);
+          return application.reopen(function (err) {
+            if (!err)
+              req.flash('info', 'Your application has been reopened');
+            finish(err);
+          });
 
         if ('description' in req.body) {
           application.updateAttributes({
